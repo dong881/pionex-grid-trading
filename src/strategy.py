@@ -4,7 +4,7 @@ from scipy import stats
 
 def calculate_grid_strategy(predicted_low, predicted_high):
     """
-    Calculate optimal grid trading strategy parameters based on price range analysis
+    Calculate aggressive grid trading strategy parameters with higher risk/reward
     
     Args:
         predicted_low (float): Predicted lower price bound
@@ -17,23 +17,24 @@ def calculate_grid_strategy(predicted_low, predicted_high):
     price_range = predicted_high - predicted_low
     avg_price = (predicted_high + predicted_low) / 2
     
-    # Calculate volatility-based grid count
+    # More aggressive volatility-based grid count
     volatility_ratio = price_range / avg_price
-    base_grid_count = int(100 * volatility_ratio)  # Scale grids with volatility
+    base_grid_count = int(150 * volatility_ratio)  # Increased multiplier for more grids
     
-    # Ensure grid count is within bounds (10-200)
-    grid_count = max(10, min(200, base_grid_count))
+    # Ensure grid count is within bounds (10-200) but favor higher counts
+    grid_count = max(50, min(200, base_grid_count))
     
-    # Calculate optimal leverage based on price range and risk metrics
+    # Calculate aggressive leverage based on price range and market momentum
     price_ratio = predicted_high / predicted_low
-    raw_leverage = price_ratio - 1  # Base leverage on price movement potential
+    momentum_factor = 1.5  # Aggressive momentum multiplier
+    raw_leverage = (price_ratio - 1) * momentum_factor
     
-    # Apply risk adjustments
-    risk_factor = 0.7  # Conservative risk factor
+    # Apply aggressive risk adjustments
+    risk_factor = 0.9  # More aggressive risk factor (was 0.7)
     adjusted_leverage = raw_leverage * risk_factor
     
-    # Ensure leverage is within safe bounds (2-15x)
-    safe_leverage = max(2, min(15, adjusted_leverage))
+    # Ensure leverage is within bounds but favor higher values
+    safe_leverage = max(5, min(15, adjusted_leverage))  # Minimum leverage increased to 5x
     
     return grid_count, safe_leverage
 

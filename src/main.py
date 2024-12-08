@@ -11,11 +11,10 @@ def validate_predictions(predicted_low, predicted_high):
     return True
 
 def calculate_safe_leverage(predicted_low, predicted_high):
-    """Calculate leverage within safe bounds (2-15x)"""
-    raw_leverage = (predicted_high - predicted_low) / predicted_low
-    # Ensure leverage is between 2-15
-    if raw_leverage < 2:
-        return 2
+    """Calculate leverage with more aggressive bounds (5-15x)"""
+    raw_leverage = (predicted_high - predicted_low) / predicted_low * 1.5  # Added momentum multiplier
+    if raw_leverage < 5:
+        return 5
     elif raw_leverage > 15:
         return 15
     return raw_leverage
