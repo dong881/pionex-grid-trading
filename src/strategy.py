@@ -2,22 +2,19 @@ import pandas as pd
 import numpy as np
 from scipy import stats
 
-def calculate_grid_strategy(predicted_low, predicted_high):
+def calculate_grid_strategy(current_price, predicted_high):
     """
     Calculate optimal grid strategy based on current market position
     
     Args:
-        predicted_low (float): Predicted lower price bound
+        current_price (float): Current market price
         predicted_high (float): Predicted upper price bound
         
     Returns:
         tuple: (grid_count, leverage, upper_limit, lower_limit)
     """
-    # Get current price from the latest close
-    current_price = predicted_high  # Use the latest price as reference
-    
     # Calculate dynamic price ranges based on current price
-    price_volatility = (predicted_high - predicted_low) / predicted_low
+    price_volatility = (predicted_high - current_price) / current_price
     
     # Calculate aggressive bounds
     upper_limit = current_price * (1 + price_volatility * 1.2)  # 20% more volatile upside
@@ -28,8 +25,8 @@ def calculate_grid_strategy(predicted_low, predicted_high):
     volatility_ratio = price_range / current_price
     
     # More aggressive grid count calculation
-    base_grid_count = int(180 * volatility_ratio)  # Increased multiplier for more grids
-    grid_count = max(50, min(200, base_grid_count))
+    base_grid_count = int(price_range / 100)  # One grid per $100 range
+    grid_count = max(10, min(200, base_grid_count))
     
     # Calculate aggressive leverage
     price_ratio = upper_limit / lower_limit
@@ -45,7 +42,7 @@ def calculate_grid_strategy(predicted_low, predicted_high):
 
 def validate_grid_parameters(grid_count, leverage, upper_limit, lower_limit):
     """Validate grid trading parameters"""
-    if not (50 <= grid_count <= 200):
+    if not (10 <= grid_count <= 200):
         return False
     if not (5 <= leverage <= 15):
         return False
