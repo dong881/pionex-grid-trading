@@ -46,11 +46,16 @@ def main():
         leverage = calculate_safe_leverage(predicted_low, predicted_high)
         grid_count = calculate_grid_count(price_range)
         
-        print("\nGrid Trading Strategy:")
-        print(f"Entry Price: {suggested_entry_price:.2f} USD")
-        print(f"Lower Limit: {predicted_low:.2f} USD")
-        print(f"Upper Limit: {predicted_high:.2f} USD")
-        print(f"Price Range: {price_range:.2f} USD")
+        current_price = df['close'].iloc[-1]  # Get the latest price
+        print(f"\nCurrent Price: {current_price:.2f} USD")
+        
+        grid_count, leverage, upper_limit, lower_limit = calculate_grid_strategy(predicted_low, predicted_high)
+        
+        print("\nGrid Trading Strategy (Aggressive):")
+        print(f"Entry Price: {current_price:.2f} USD")
+        print(f"Upper Limit: {upper_limit:.2f} USD")
+        print(f"Lower Limit: {lower_limit:.2f} USD")
+        print(f"Price Range: {(upper_limit - lower_limit):.2f} USD")
         print(f"Number of Grids: {grid_count}")
         print(f"Leverage: {leverage:.2f}x")
 

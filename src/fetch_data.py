@@ -4,7 +4,11 @@ from datetime import datetime, timedelta
 
 def fetch_klines(symbol, interval, limit):
     url = "https://api.pionex.com/api/v1/market/klines"
-    params = {"symbol": symbol, "interval": interval, "limit": limit}
+    params = {
+        "symbol": symbol, 
+        "interval": interval, 
+        "limit": 1  # Get only most recent data
+    }
     response = requests.get(url, params=params)
     
     if response.status_code == 200:
@@ -16,10 +20,6 @@ def fetch_klines(symbol, interval, limit):
             df[["open", "close", "high", "low", "volume"]] = df[["open", "close", "high", "low", "volume"]].astype(float)
             df.set_index("time", inplace=True)
             return df
-        else:
-            print("Pionex API returned invalid k-line data.")
-    else:
-        print(f"Failed to fetch K-line data, HTTP status code: {response.status_code}")
     return None
 
 def fetch_last_14_days_klines(symbol="BTC_USDT_PERP", interval="4H"):
