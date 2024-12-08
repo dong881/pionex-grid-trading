@@ -2,31 +2,58 @@ from fetch_data import fetch_klines
 from analysis import analyze_klines
 from strategy import calculate_grid_strategy
 
+def validate_predictions(predicted_low, predicted_high):
+    """Validate prediction values are reasonable"""
+    if predicted_low >= predicted_high:
+        return False
+    if predicted_low <= 0:
+        return False
+    return True
+
+def calculate_safe_leverage(predicted_low, predicted_high):
+    """Calculate leverage within safe bounds (2-15x)"""
+    raw_leverage = (predicted_high - predicted_low) / predicted_low
+    # Ensure leverage is between 2-15
+    if raw_leverage < 2:
+        return 2
+    elif raw_leverage > 15:
+        return 15
+    return raw_leverage
+
+def calculate_grid_count(price_range):
+    """Calculate grid count between 10-200"""
+    # Base calculation on price range
+    suggested_count = int(price_range / 100)  # One grid per $100 range
+    if suggested_count < 10:
+        return 10
+    elif suggested_count > 200:
+        return 200
+    return suggested_count
+
 def main():
-    # Fetch the latest 14 days of 4-hour K-lines data
     symbol = "BTC_USDT_PERP"
     interval = "4H"
     limit = 14 * 6  # 14 days of 4-hour intervals
     df = fetch_klines(symbol, interval, limit)
     
     if df is not None:
-        print("Fetched K-lines data:")
-        print(df)
-        
-        # Analyze the K-lines data to find the suggested entry price and grid limits
         suggested_entry_price, predicted_low, predicted_high = analyze_klines(df)
         
-        # Calculate the grid strategy
-        grid_count, leverage = calculate_grid_strategy(predicted_low, predicted_high)
+        if not validate_predictions(predicted_low, predicted_high):
+            print("Error: Invalid prediction values")
+            return
+            
+        price_range = predicted_high - predicted_low
+        leverage = calculate_safe_leverage(predicted_low, predicted_high)
+        grid_count = calculate_grid_count(price_range)
         
-        print(f"Suggested Entry Price: {suggested_entry_price:.2f} USD")
-        print(f"Grid Trading Suggestion:")
-        print(f"  Upper Price Limit: {predicted_high:.2f} USD")
-        print(f"  Lower Price Limit: {predicted_low:.2f} USD")
-        print(f"  Grid Count: {grid_count}")
-        print(f"  Suggested Leverage: {leverage:.2f}x")
-    else:
-        print("Failed to fetch K-lines data.")
+        print("\nGrid Trading Strategy:")
+        print(f"Entry Price: {suggested_entry_price:.2f} USD")
+        print(f"Lower Limit: {predicted_low:.2f} USD")
+        print(f"Upper Limit: {predicted_high:.2f} USD")
+        print(f"Price Range: {price_range:.2f} USD")
+        print(f"Number of Grids: {grid_count}")
+        print(f"Leverage: {leverage:.2f}x")
 
 if __name__ == "__main__":
     main()
