@@ -13,15 +13,20 @@ import pandas as pd
 class HistoricalDataCollector:
     """Collects historical Bitcoin price data"""
     
-    def __init__(self, output_dir: str = "data/raw"):
+    # API rate limiting configuration
+    DEFAULT_RATE_LIMIT_DELAY = 0.5  # seconds between requests
+    
+    def __init__(self, output_dir: str = "data/raw", rate_limit_delay: float = None):
         """
         Initialize data collector
         
         Args:
             output_dir: Directory to save collected data
+            rate_limit_delay: Delay between API requests in seconds (default: 0.5)
         """
         self.output_dir = output_dir
         os.makedirs(output_dir, exist_ok=True)
+        self.rate_limit_delay = rate_limit_delay or self.DEFAULT_RATE_LIMIT_DELAY
     
     def fetch_binance_data(self, symbol: str = "BTCUSDT", interval: str = "1h", 
                           start_date: datetime = None, end_date: datetime = None) -> pd.DataFrame:
@@ -76,7 +81,7 @@ class HistoricalDataCollector:
                     print(f"Fetched {len(data)} records, total: {len(all_data)}")
                     
                     # Rate limiting
-                    time.sleep(0.5)
+                    time.sleep(self.rate_limit_delay)
                 else:
                     print(f"Error: HTTP {response.status_code}")
                     break

@@ -53,10 +53,40 @@ def fetch_klines_data(symbol="BTC_USDT_PERP", interval="4H", days=14):
                     "current_price": float(df['close'].iloc[-1]),
                     "timestamp": datetime.now().isoformat()
                 }
-        
+            else:
+                return {
+                    "success": False,
+                    "error": "API returned no data",
+                    "timestamp": datetime.now().isoformat()
+                }
+        elif response.status_code == 429:
+            return {
+                "success": False,
+                "error": "Rate limit exceeded. Please try again later.",
+                "timestamp": datetime.now().isoformat()
+            }
+        elif response.status_code >= 500:
+            return {
+                "success": False,
+                "error": "API service temporarily unavailable",
+                "timestamp": datetime.now().isoformat()
+            }
+        else:
+            return {
+                "success": False,
+                "error": f"API request failed with status {response.status_code}",
+                "timestamp": datetime.now().isoformat()
+            }
+    except requests.exceptions.Timeout:
         return {
             "success": False,
-            "error": f"API request failed with status {response.status_code}",
+            "error": "Request timeout. API may be slow or unavailable.",
+            "timestamp": datetime.now().isoformat()
+        }
+    except requests.exceptions.ConnectionError:
+        return {
+            "success": False,
+            "error": "Network connection error. Please check your internet connection.",
             "timestamp": datetime.now().isoformat()
         }
     except Exception as e:

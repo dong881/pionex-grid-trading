@@ -13,6 +13,9 @@ class BitcoinTradingEnv(gym.Env):
     
     metadata = {'render_modes': ['human']}
     
+    # Numerical stability constant to prevent division by zero
+    EPSILON = 1e-8
+    
     def __init__(self, data: pd.DataFrame, initial_balance: float = 10000,
                  commission: float = 0.001, window_size: int = 60):
         """
@@ -82,7 +85,7 @@ class BitcoinTradingEnv(gym.Env):
             if col in window_data.columns:
                 values = window_data[col].values
                 # Normalize by dividing by the first value
-                normalized = values / (values[0] + 1e-8)
+                normalized = values / (values[0] + self.EPSILON)
                 price_features.extend(normalized)
         
         # Account features (normalized)
@@ -199,7 +202,7 @@ class BitcoinTradingEnv(gym.Env):
         
         # Calculate Sharpe ratio (simplified)
         returns = np.diff(self.portfolio_values) / self.portfolio_values[:-1]
-        sharpe = np.mean(returns) / (np.std(returns) + 1e-8) * np.sqrt(252)
+        sharpe = np.mean(returns) / (np.std(returns) + self.EPSILON) * np.sqrt(252)
         
         # Calculate max drawdown
         cummax = np.maximum.accumulate(self.portfolio_values)

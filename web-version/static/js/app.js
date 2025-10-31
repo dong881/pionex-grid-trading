@@ -45,9 +45,10 @@ function updateDashboard(data) {
     document.getElementById('gridCount').textContent = data.strategy.grid_count;
     document.getElementById('leverage').textContent = `${data.strategy.leverage}x`;
     
-    // Apply color based on drawdown
+    # Apply color based on drawdown
+    const DRAWDOWN_THRESHOLD = -10;  // Threshold for significant drawdown
     const drawdownElement = document.getElementById('maxDrawdown');
-    if (data.drawdown.max_drawdown < -10) {
+    if (data.drawdown.max_drawdown < DRAWDOWN_THRESHOLD) {
         drawdownElement.classList.add('negative');
     } else {
         drawdownElement.classList.remove('negative');
@@ -208,6 +209,20 @@ function hideLoading() {
 }
 
 function showError(message) {
-    alert(`Error: ${message}`);
+    // Create error notification element
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-notification';
+    errorDiv.textContent = `Error: ${message}`;
+    errorDiv.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #f44336; color: white; padding: 15px 25px; border-radius: 8px; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3);';
+    
+    document.body.appendChild(errorDiv);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        errorDiv.style.opacity = '0';
+        errorDiv.style.transition = 'opacity 0.5s';
+        setTimeout(() => errorDiv.remove(), 500);
+    }, 5000);
+    
     hideLoading();
 }

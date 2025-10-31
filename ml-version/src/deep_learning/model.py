@@ -132,7 +132,8 @@ class TransformerPredictor(nn.Module):
     """Transformer-based price prediction model"""
     
     def __init__(self, input_size: int, d_model: int = 128, nhead: int = 8, 
-                 num_layers: int = 3, dropout: float = 0.2, output_size: int = 1):
+                 num_layers: int = 3, dropout: float = 0.2, output_size: int = 1,
+                 max_seq_length: int = 100):
         """
         Initialize Transformer model
         
@@ -143,6 +144,7 @@ class TransformerPredictor(nn.Module):
             num_layers: Number of transformer layers
             dropout: Dropout rate
             output_size: Number of outputs
+            max_seq_length: Maximum sequence length for positional encoding
         """
         super(TransformerPredictor, self).__init__()
         
@@ -150,7 +152,8 @@ class TransformerPredictor(nn.Module):
         self.input_projection = nn.Linear(input_size, d_model)
         
         # Positional encoding
-        self.pos_encoder = nn.Parameter(torch.randn(1, 100, d_model))
+        self.pos_encoder = nn.Parameter(torch.randn(1, max_seq_length, d_model))
+        self.max_seq_length = max_seq_length
         
         # Transformer encoder
         encoder_layer = nn.TransformerEncoderLayer(
@@ -172,6 +175,8 @@ class TransformerPredictor(nn.Module):
         
         # Add positional encoding
         seq_len = x.size(1)
+        if seq_len > self.max_seq_length:
+            raise ValueError(f"Sequence length {seq_len} exceeds maximum {self.max_seq_length}")
         x = x + self.pos_encoder[:, :seq_len, :]
         
         # Transformer
