@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Run on push to main branch
+  push:
+    branches: [ main ]
+  
+  # Run on schedule (every 4 hours)
+  schedule:
+    - cron: '0 */4 * * *'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pandas pytz numpy scikit-learn
+      
+      - name: Generate static data
+        run: |
+          cd web-version/api
+          mkdir -p ../static/data
+          python generate_data.py
+        env:
+          # Add any API keys here if needed
+          PIONEX_API_KEY: ${{ secrets.PIONEX_API_KEY }}
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'web-version'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
