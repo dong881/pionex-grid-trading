@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pionex Grid Trading Strategy Dashboard</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔥 Pionex Grid Trading Strategy Dashboard</h1>
+            <p class="subtitle">Real-time Grid Trading Analysis & Performance Monitoring</p>
+        </header>
+
+        <div class="controls">
+            <select id="periodSelect">
+                <option value="7d">Last 7 Days</option>
+                <option value="14d" selected>Last 14 Days</option>
+                <option value="30d">Last 30 Days</option>
+            </select>
+            <button id="refreshBtn" onclick="loadData()">🔄 Refresh Data</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Current Price</h3>
+                <div class="stat-value" id="currentPrice">Loading...</div>
+                <div class="stat-label">BTC/USDT PERP</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Max Drawdown</h3>
+                <div class="stat-value" id="maxDrawdown">Loading...</div>
+                <div class="stat-label">Peak to Trough</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Grid Count</h3>
+                <div class="stat-value" id="gridCount">Loading...</div>
+                <div class="stat-label">Optimal Grids</div>
+            </div>
+            
+            <div class="stat-card">
+                <h3>Leverage</h3>
+                <div class="stat-value" id="leverage">Loading...</div>
+                <div class="stat-label">Recommended</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h2>Price Chart</h2>
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <div class="strategy-details">
+            <h2>Strategy Details</h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Entry Price:</span>
+                    <span class="detail-value" id="entryPrice">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Upper Limit:</span>
+                    <span class="detail-value" id="upperLimit">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Lower Limit:</span>
+                    <span class="detail-value" id="lowerLimit">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Price Range:</span>
+                    <span class="detail-value" id="priceRange">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Predicted High:</span>
+                    <span class="detail-value" id="predictedHigh">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Predicted Low:</span>
+                    <span class="detail-value" id="predictedLow">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="drawdown-section">
+            <h2>Drawdown Analysis</h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">Max Drawdown:</span>
+                    <span class="detail-value" id="maxDrawdownDetail">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Max Drawdown Date:</span>
+                    <span class="detail-value" id="maxDrawdownDate">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Current Drawdown:</span>
+                    <span class="detail-value" id="currentDrawdown">-</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Peak Price:</span>
+                    <span class="detail-value" id="peakPrice">-</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Last Updated: <span id="lastUpdated">-</span></p>
+            <p>Data source: Pionex API (Free) | Auto-refreshes every 4 hours via GitHub Actions</p>
+        </footer>
+    </div>
+
+    <script src="static/js/app.js"></script>
+</body>
+</html>
