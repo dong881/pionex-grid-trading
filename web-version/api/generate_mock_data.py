@@ -106,7 +106,8 @@ def generate_mock_analysis(days=14):
 
 def generate_mock_data_files():
     """Generate mock data files"""
-    output_dir = "../static/data"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(script_dir, "..", "static", "data")
     os.makedirs(output_dir, exist_ok=True)
     
     # Generate for different periods

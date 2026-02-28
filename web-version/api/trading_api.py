@@ -6,11 +6,6 @@ import requests
 import pandas as pd
 from datetime import datetime, timedelta
 import json
-import sys
-import os
-
-# Add parent directory to path to import from src
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../src'))
 
 def fetch_klines_data(symbol="BTC_USDT_PERP", interval="4H", days=14):
     """
@@ -19,11 +14,19 @@ def fetch_klines_data(symbol="BTC_USDT_PERP", interval="4H", days=14):
     Args:
         symbol (str): Trading pair symbol
         interval (str): Time interval (e.g., "4H", "1D")
-        days (int): Number of days of historical data
+        days (int): Number of days of historical data (1-365)
         
     Returns:
         dict: Dictionary containing price data and metadata
     """
+    # Validate days parameter
+    if not isinstance(days, int) or days < 1 or days > 365:
+        return {
+            "success": False,
+            "error": "Invalid 'days' parameter. Must be an integer between 1 and 365.",
+            "timestamp": datetime.now().isoformat()
+        }
+    
     end_time = int(datetime.now().timestamp() * 1000)
     start_time = int((datetime.now() - timedelta(days=days)).timestamp() * 1000)
     

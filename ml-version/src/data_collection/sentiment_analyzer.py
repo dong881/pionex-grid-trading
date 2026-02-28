@@ -165,6 +165,10 @@ class SentimentAnalyzer:
         """
         print(f"\nAnalyzing sentiment for {len(articles)} articles...")
         
+        if not articles:
+            print("No articles to analyze.")
+            return []
+        
         analyzed_articles = []
         
         for article in articles:

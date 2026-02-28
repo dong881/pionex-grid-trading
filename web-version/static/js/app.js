@@ -45,7 +45,7 @@ function updateDashboard(data) {
     document.getElementById('gridCount').textContent = data.strategy.grid_count;
     document.getElementById('leverage').textContent = `${data.strategy.leverage}x`;
     
-    # Apply color based on drawdown
+    // Apply color based on drawdown
     const DRAWDOWN_THRESHOLD = -10;  // Threshold for significant drawdown
     const drawdownElement = document.getElementById('maxDrawdown');
     if (data.drawdown.max_drawdown < DRAWDOWN_THRESHOLD) {

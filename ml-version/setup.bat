@@ -1,11 +1,11 @@
 @echo off
 REM One-click setup script for ML version (Windows)
 
-echo ╔═══════════════════════════════════════════════════════════════╗
-echo ║                                                                 ║
-echo ║   🚀 Bitcoin Trading ML - One-Click Setup 🚀                   ║
-echo ║                                                                 ║
-echo ╚═══════════════════════════════════════════════════════════════╝
+echo ╔════════════════════════════════════════════════════════════╗
+echo ║                                                            ║
+echo ║   🚀 Bitcoin Trading ML - One-Click Setup 🚀              ║
+echo ║                                                            ║
+echo ╚════════════════════════════════════════════════════════════╝
 echo.
 
 REM Check Python version
@@ -44,14 +44,14 @@ mkdir logs\deep_learning 2>nul
 mkdir logs\reinforcement_learning 2>nul
 
 echo.
-echo ╔═══════════════════════════════════════════════════════════════╗
-echo ║                                                                 ║
-echo ║   ✅ Setup Complete! ✅                                        ║
-echo ║                                                                 ║
-echo ║   To start training:                                           ║
-echo ║   1. Activate virtual environment: venv\Scripts\activate       ║
-echo ║   2. Run training script: python train.py                      ║
-echo ║                                                                 ║
-echo ╚═══════════════════════════════════════════════════════════════╝
+echo ╔════════════════════════════════════════════════════════════╗
+echo ║                                                            ║
+echo ║   ✅ Setup Complete! ✅                                    ║
+echo ║                                                            ║
+echo ║   To start training:                                       ║
+echo ║   1. Activate virtual environment: venv\Scripts\activate   ║
+echo ║   2. Run training script: python train.py                  ║
+echo ║                                                            ║
+echo ╚════════════════════════════════════════════════════════════╝
 
 pause
