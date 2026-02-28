@@ -3,7 +3,7 @@ import pandas as pd
 def analyze_price_data(df):
     """Analyze the price data to determine optimal entry price and predict future highs and lows."""
     if df is None or df.empty:
-        print("No data available for analysis.")
+        print("No data available for price analysis. Verify data fetching completed successfully.")
         return None, None, None
     
     recent_lows = df['low'].rolling(window=6).min()  # Last 24 hours of lows
@@ -22,7 +22,7 @@ def analyze_price_data(df):
 def analyze_klines(df):
     """Analyze K-line data to find suggested entry price and grid limits."""
     if df is None or df.empty:
-        print("No data available for K-line analysis.")
+        print("No data available for K-line analysis. Verify data fetching completed successfully.")
         return None, None, None
     
     # Example analysis logic to find suggested entry price and grid limits

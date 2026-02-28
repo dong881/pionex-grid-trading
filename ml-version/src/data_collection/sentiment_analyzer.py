@@ -166,7 +166,7 @@ class SentimentAnalyzer:
         print(f"\nAnalyzing sentiment for {len(articles)} articles...")
         
         if not articles:
-            print("No articles to analyze.")
+            print("No articles to analyze. Check if article collection completed successfully.")
             return []
         
         analyzed_articles = []

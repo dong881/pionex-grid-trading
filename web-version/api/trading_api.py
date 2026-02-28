@@ -20,7 +20,15 @@ def fetch_klines_data(symbol="BTC_USDT_PERP", interval="4H", days=14):
         dict: Dictionary containing price data and metadata
     """
     # Validate days parameter
-    if not isinstance(days, int) or days < 1 or days > 365:
+    try:
+        days = int(days)
+    except (TypeError, ValueError):
+        return {
+            "success": False,
+            "error": "Invalid 'days' parameter. Must be an integer between 1 and 365.",
+            "timestamp": datetime.now().isoformat()
+        }
+    if days < 1 or days > 365:
         return {
             "success": False,
             "error": "Invalid 'days' parameter. Must be an integer between 1 and 365.",

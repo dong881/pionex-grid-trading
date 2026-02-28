@@ -12,7 +12,7 @@ def fetch_klines(symbol, interval, limit):
     try:
         response = requests.get(url, params=params, timeout=10)
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching K-line data: {e}")
+        print(f"Error in fetch_klines: {e}")
         return None
     
     if response.status_code == 200:
@@ -43,7 +43,7 @@ def fetch_last_14_days_klines(symbol="BTC_USDT_PERP", interval="4H"):
     try:
         response = requests.get(url, params=params, timeout=10)
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching K-line data: {e}")
+        print(f"Error in fetch_last_14_days_klines: {e}")
         return None
     
     if response.status_code == 200:
