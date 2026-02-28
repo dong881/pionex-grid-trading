@@ -1,7 +1,3 @@
-import pandas as pd
-import numpy as np
-from scipy import stats
-
 def calculate_grid_strategy(current_price, predicted_high):
     """
     Calculate optimal grid strategy based on current market position
@@ -22,7 +18,6 @@ def calculate_grid_strategy(current_price, predicted_high):
     
     # Calculate grid parameters
     price_range = upper_limit - lower_limit
-    volatility_ratio = price_range / current_price
     
     # More aggressive grid count calculation
     base_grid_count = int(price_range / 100)  # One grid per $100 range

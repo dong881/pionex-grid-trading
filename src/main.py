@@ -4,6 +4,8 @@ from strategy import calculate_grid_strategy, validate_grid_parameters
 
 def validate_predictions(predicted_low, predicted_high):
     """Validate prediction values are reasonable"""
+    if predicted_low is None or predicted_high is None:
+        return False
     if predicted_low >= predicted_high:
         return False
     if predicted_low <= 0:

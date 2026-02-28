@@ -2,11 +2,11 @@
 
 # One-click setup script for ML version
 
-echo "╔═══════════════════════════════════════════════════════════════╗"
-echo "║                                                                 ║"
-echo "║   🚀 Bitcoin Trading ML - One-Click Setup 🚀                   ║"
-echo "║                                                                 ║"
-echo "╚═══════════════════════════════════════════════════════════════╝"
+echo "╔════════════════════════════════════════════════════════════╗"
+echo "║                                                            ║"
+echo "║   🚀 Bitcoin Trading ML - One-Click Setup 🚀              ║"
+echo "║                                                            ║"
+echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
 # Check Python version
@@ -42,12 +42,12 @@ mkdir -p checkpoints/{deep_learning,reinforcement_learning}
 mkdir -p logs/{deep_learning,reinforcement_learning}
 
 echo ""
-echo "╔═══════════════════════════════════════════════════════════════╗"
-echo "║                                                                 ║"
-echo "║   ✅ Setup Complete! ✅                                        ║"
-echo "║                                                                 ║"
-echo "║   To start training:                                           ║"
-echo "║   1. Activate virtual environment: source venv/bin/activate    ║"
-echo "║   2. Run training script: python train.py                      ║"
-echo "║                                                                 ║"
-echo "╚═══════════════════════════════════════════════════════════════╝"
+echo "╔════════════════════════════════════════════════════════════╗"
+echo "║                                                            ║"
+echo "║   ✅ Setup Complete! ✅                                    ║"
+echo "║                                                            ║"
+echo "║   To start training:                                       ║"
+echo "║   1. Activate virtual environment: source venv/bin/activate║"
+echo "║   2. Run training script: python train.py                  ║"
+echo "║                                                            ║"
+echo "╚════════════════════════════════════════════════════════════╝"

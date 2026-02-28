@@ -163,11 +163,11 @@ def test_reinforcement_learning():
     print("\n✅ Reinforcement Learning test completed successfully!")
 
 if __name__ == "__main__":
-    print("\n╔═══════════════════════════════════════════════════════════════╗")
-    print("║                                                                 ║")
-    print("║   🧪 ML Version Quick Test Suite 🧪                            ║")
-    print("║                                                                 ║")
-    print("╚═══════════════════════════════════════════════════════════════╝")
+    print("\n╔════════════════════════════════════════════════════════════╗")
+    print("║                                                            ║")
+    print("║   🧪 ML Version Quick Test Suite 🧪                       ║")
+    print("║                                                            ║")
+    print("╚════════════════════════════════════════════════════════════╝")
     
     try:
         test_deep_learning()

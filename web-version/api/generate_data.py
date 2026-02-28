@@ -9,8 +9,9 @@ from trading_api import get_full_analysis
 def generate_static_data():
     """Generate static JSON data files for the web interface"""
     
-    # Create output directory
-    output_dir = "../static/data"
+    # Create output directory relative to this script's location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(script_dir, "..", "static", "data")
     os.makedirs(output_dir, exist_ok=True)
     
     # Generate analysis for different time periods

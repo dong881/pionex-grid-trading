@@ -225,7 +225,7 @@ def save_model(model: nn.Module, filepath: str):
 
 def load_model(filepath: str, model: nn.Module) -> nn.Module:
     """Load model checkpoint"""
-    checkpoint = torch.load(filepath)
+    checkpoint = torch.load(filepath, weights_only=True)
     model.load_state_dict(checkpoint['model_state_dict'])
     print(f"Model loaded from {filepath}")
     return model

@@ -15,44 +15,44 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 def print_banner():
     """Print welcome banner"""
     banner = """
-╔═══════════════════════════════════════════════════════════════╗
-║                                                                 ║
-║   🤖 Bitcoin Trading ML Training System 🤖                     ║
-║                                                                 ║
-║   Powered by Deep Learning & Reinforcement Learning            ║
-║                                                                 ║
-╚═══════════════════════════════════════════════════════════════╝
+╔════════════════════════════════════════════════════════════╗
+║                                                            ║
+║   🤖 Bitcoin Trading ML Training System 🤖                ║
+║                                                            ║
+║   Powered by Deep Learning & Reinforcement Learning        ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
     """
     print(banner)
 
 def print_menu():
     """Print training mode menu"""
     menu = """
-╔═══════════════════════════════════════════════════════════════╗
-║                    TRAINING MODE SELECTION                      ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                                 ║
-║  [1] 📊 Collect Historical Data                                ║
-║      Download historical Bitcoin price data                    ║
-║                                                                 ║
-║  [2] 📰 Collect News Data                                      ║
-║      Collect and analyze Bitcoin news sentiment                ║
-║                                                                 ║
-║  [3] 🧠 Deep Learning Training                                 ║
-║      Train LSTM/GRU model with price + news + indicators       ║
-║                                                                 ║
-║  [4] 🎮 Reinforcement Learning Training                        ║
-║      Train RL agent to learn trading strategies                ║
-║                                                                 ║
-║  [5] 📈 Evaluate Models                                        ║
-║      Test and evaluate trained models                          ║
-║                                                                 ║
-║  [6] 🔄 Full Pipeline                                          ║
-║      Run complete data collection → training pipeline          ║
-║                                                                 ║
-║  [0] ❌ Exit                                                   ║
-║                                                                 ║
-╚═══════════════════════════════════════════════════════════════╝
+╔════════════════════════════════════════════════════════════╗
+║                    TRAINING MODE SELECTION                  ║
+╠════════════════════════════════════════════════════════════╣
+║                                                            ║
+║  [1] 📊 Collect Historical Data                           ║
+║      Download historical Bitcoin price data                ║
+║                                                            ║
+║  [2] 📰 Collect News Data                                 ║
+║      Collect and analyze Bitcoin news sentiment            ║
+║                                                            ║
+║  [3] 🧠 Deep Learning Training                            ║
+║      Train LSTM/GRU model with price + news + indicators   ║
+║                                                            ║
+║  [4] 🎮 Reinforcement Learning Training                   ║
+║      Train RL agent to learn trading strategies            ║
+║                                                            ║
+║  [5] 📈 Evaluate Models                                   ║
+║      Test and evaluate trained models                      ║
+║                                                            ║
+║  [6] 🔄 Full Pipeline                                     ║
+║      Run complete data collection → training pipeline      ║
+║                                                            ║
+║  [0] ❌ Exit                                              ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
     """
     print(menu)
 

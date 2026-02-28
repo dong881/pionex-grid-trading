@@ -7,9 +7,13 @@ def fetch_klines(symbol, interval, limit):
     params = {
         "symbol": symbol, 
         "interval": interval, 
-        "limit": 1  # Get only most recent data
+        "limit": limit
     }
-    response = requests.get(url, params=params)
+    try:
+        response = requests.get(url, params=params, timeout=10)
+    except requests.exceptions.RequestException as e:
+        print(f"Error in fetch_klines: {e}")
+        return None
     
     if response.status_code == 200:
         data = response.json()
@@ -36,7 +40,11 @@ def fetch_last_14_days_klines(symbol="BTC_USDT_PERP", interval="4H"):
         "endTime": end_time
     }
     
-    response = requests.get(url, params=params)
+    try:
+        response = requests.get(url, params=params, timeout=10)
+    except requests.exceptions.RequestException as e:
+        print(f"Error in fetch_last_14_days_klines: {e}")
+        return None
     
     if response.status_code == 200:
         data = response.json()
